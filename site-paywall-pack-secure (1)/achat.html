@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carte privée – Achat</title>
+<link rel="stylesheet" href="/styles.css">
+</head><body>
+<main>
+  <h2>Accès carte privée</h2>
+  <p>Paiement sécurisé par Stripe. Vous serez redirigé après validation.</p>
+  <button id="buy" class="btn">Acheter – 14,90 €</button>
+</main>
+<script>
+document.getElementById('buy').onclick = async () => {
+  const r = await fetch('/api/create-checkout-session', { method: 'POST' });
+  const { checkoutUrl } = await r.json();
+  if (!checkoutUrl) { alert('Erreur de paiement'); return; }
+  window.location = checkoutUrl;
+};
+</script>
+</body></html>
